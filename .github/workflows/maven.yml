@@ -50,6 +50,13 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
+        - name: Read schemas.json
+          id: package
+          uses: juliangruber/read-file-action@v1
+          with:
+            path: ./schema_tests/schemas.json
+        - name: Echo schemas.json
+          run: echo "${{ steps.package.outputs.content }}"
         - name: External contract validate
           id: request-to-lambda
           uses: fjogeleit/http-request-action@v1
