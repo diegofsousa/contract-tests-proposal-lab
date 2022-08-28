@@ -50,6 +50,13 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
+        - name: Read schemas.json
+          id: package
+          uses: juliangruber/read-file-action@v1
+          with:
+            path: ./schema_tests/schemas.json
+          - name: Echo schemas.json
+            run: echo "${{ steps.package.outputs.content }}"
         - name: External contract validate
           id: request-to-lambda
           uses: fjogeleit/http-request-action@v1
@@ -57,28 +64,7 @@ jobs:
             url: 'https://8vip765q9k.execute-api.sa-east-1.amazonaws.com/default/basicLambda'
             method: 'POST'
             customHeaders: '{"Content-Type": "application/json"}'
-            data: '{
-              "data" : [ {
-                "key" : "messageV1",
-                "object" : {
-                  "fee" : 0.7203228025807761
-                }
-              }, {
-                "key" : "cardV1",
-                "object" : {
-                  "id" : 287612310210581,
-                  "name" : "IMVb_zcRAJ",
-                  "fee" : 0.9558223933937818,
-                  "details" : {
-                    "type" : "36hbMlGZbm",
-                    "active" : true,
-                    "days" : 542101621
-                  }
-                }
-              } ]
-            }
-          '
-
+            data: "${{ steps.package.outputs.content }}"
         - name: Show Response
           run: |
             echo ${{ steps.request-to-lambda.outputs.response }}
