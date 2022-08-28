@@ -51,6 +51,7 @@ jobs:
 
       steps:
         - name: External contract validate
+          id: request-to-lambda
           uses: fjogeleit/http-request-action@v1
           with:
             url: 'https://8vip765q9k.execute-api.sa-east-1.amazonaws.com/default/basicLambda'
@@ -80,5 +81,5 @@ jobs:
 
         - name: Show Response
           run: |
-            echo ${{ steps.myRequest.outputs.response }}
-            echo ${{ steps.myRequest.outputs.headers }}
+            echo ${{ steps.request-to-lambda.outputs.response }}
+            echo ${{ steps.request-to-lambda.outputs.headers }}
