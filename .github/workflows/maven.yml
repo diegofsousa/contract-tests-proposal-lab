@@ -57,7 +57,7 @@ jobs:
             method: 'POST'
             customHeaders: '{"Content-Type": "application/json"}'
             data: | 
-              {
+              '{
               "data" : [ {
                 "key" : "messageV1",
                 "object" : {
@@ -76,4 +76,9 @@ jobs:
                   }
                 }
               } ]
-            }
+            }'
+
+        - name: Show Response
+          run: |
+            echo ${{ steps.myRequest.outputs.response }}
+            echo ${{ steps.myRequest.outputs.headers }}
