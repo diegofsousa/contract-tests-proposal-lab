@@ -44,3 +44,36 @@ jobs:
             cd schema_tests/tests/
             npm install
             node index.js
+
+  validate-external-contract-tests:
+      needs: [build, local-contract-tests]
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: External contract validate
+          uses: fjogeleit/http-request-action@v1
+          with:
+            url: 'https://8vip765q9k.execute-api.sa-east-1.amazonaws.com/default/basicLambda'
+            method: 'POST'
+            customHeaders: '{"Content-Type": "application/json"}'
+            data: | 
+              {
+              "data" : [ {
+                "key" : "messageV1",
+                "object" : {
+                  "fee" : 0.7203228025807761
+                }
+              }, {
+                "key" : "cardV1",
+                "object" : {
+                  "id" : 287612310210581,
+                  "name" : "IMVb_zcRAJ",
+                  "fee" : 0.9558223933937818,
+                  "details" : {
+                    "type" : "36hbMlGZbm",
+                    "active" : true,
+                    "days" : 542101621
+                  }
+                }
+              } ]
+            }
