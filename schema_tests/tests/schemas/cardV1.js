@@ -8,7 +8,7 @@ module.exports = function (payload) {
         details: Joi.object().keys({
             type: Joi.string(),
             active: Joi.boolean(),
-            days: Joi.number(),
+            days: Joi.string(),
         })
     }).required();
 
