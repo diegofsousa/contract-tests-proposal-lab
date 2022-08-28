@@ -56,8 +56,7 @@ jobs:
             url: 'https://8vip765q9k.execute-api.sa-east-1.amazonaws.com/default/basicLambda'
             method: 'POST'
             customHeaders: '{"Content-Type": "application/json"}'
-            data: | 
-              '{
+            data: '{
               "data" : [ {
                 "key" : "messageV1",
                 "object" : {
@@ -76,7 +75,8 @@ jobs:
                   }
                 }
               } ]
-            }'
+            }
+          '
 
         - name: Show Response
           run: |
