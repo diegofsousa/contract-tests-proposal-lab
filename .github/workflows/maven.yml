@@ -72,12 +72,14 @@ jobs:
             
         - name: Check result fail
           if: ${{ fromJson(steps.request-to-lambda.outputs.response).status }} == "FAILED"
+          uses: actions/github-script@v3
           with:
             script: |
               core.setFailed('[FAIL] Some schemas test fail')
 
         - name: Check result warning
           if: ${{ fromJson(steps.request-to-lambda.outputs.response).status }} == "WARNING"
+          uses: actions/github-script@v3
           with:
             script: |
               core.warning('[WARNING] There are test cases that were not found in other repositories');
