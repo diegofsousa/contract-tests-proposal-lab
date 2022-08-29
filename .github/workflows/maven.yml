@@ -69,6 +69,7 @@ jobs:
         - name: Show Response
           run: |
             echo ${{ steps.request-to-lambda.outputs.response }}
+            echo ${{ fromJson(steps.request-to-lambda.outputs.response).status }}
             
         - name: Check result fail
           if: ${{ fromJson(steps.request-to-lambda.outputs.response).status }} == "FAILED"
