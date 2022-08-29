@@ -69,4 +69,15 @@ jobs:
         - name: Show Response
           run: |
             echo ${{ steps.request-to-lambda.outputs.response }}
-            echo ${{ steps.request-to-lambda.outputs.headers }}
+        - name: Check result fail
+          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status }} == "FAILED"
+          with:
+            script: |
+              core.setFailed('[FAIL] Some schemas test fail')
+
+        - name: Check result warning
+          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status }} == "WARNING"
+          with:
+            script: |
+              core.warning('[WARNING] There are test cases that were not found in other repositories');
+
