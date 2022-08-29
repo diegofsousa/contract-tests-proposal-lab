@@ -72,14 +72,14 @@ jobs:
             echo ${{ fromJson(steps.request-to-lambda.outputs.response).status }}
             
         - name: Check result fail
-          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status }} == ${{ 'FAILED' }}
+          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'FAILED' }}
           uses: actions/github-script@v3
           with:
             script: |
               core.setFailed('[FAIL] Some schemas test fail')
 
         - name: Check result warning
-          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status }} == ${{ 'WARNING' }}
+          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'WARNING' }}
           uses: actions/github-script@v3
           with:
             script: |
