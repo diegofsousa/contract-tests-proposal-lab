@@ -147,7 +147,7 @@ jobs:
         with:
           path: ./schema_tests/tests/schemas/.schema-data.json
       - name: Push contract
-        if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'SCHEMA_UPDATE_BY_OWNER' || fromJson(steps.request-to-lambda.outputs.response).status == 'SUCCESS_SCHEMA_TESTS_AND_SCHEMA_UPDATE_BY_OWNER' || (fromJson(steps.request-to-lambda.outputs.response).status == 'SUCCESS_SCHEMA_TEST' && fromJson(steps.request-to-lambda.outputs.response).hasNewCases == true) }}
+        if: ${{ fromJson(request-to-lambda-validate.outputs.response).canPush == true }}
         id: request-to-lambda-push
         uses: fjogeleit/http-request-action@v1
         with:
