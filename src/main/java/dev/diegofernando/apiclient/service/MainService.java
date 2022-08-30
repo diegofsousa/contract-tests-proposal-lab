@@ -14,7 +14,7 @@ public class MainService {
         contentDTO.setDays(5);
         contentDTO.setType("FIRST CARD");
         cardDTO.setId(1);
-        cardDTO.setFee(5.7);
+        cardDTO.setFee("5.7");
         cardDTO.setName("CARD ONE");
         cardDTO.setContent(contentDTO);
         return cardDTO;
