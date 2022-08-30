@@ -128,7 +128,7 @@ jobs:
           data: "${{ steps.package.outputs.content }}"
       - name: Show Response
         run: |
-          echo ${{ steps.request-to-lambda.outputs.response }}
+          echo ${{ steps.request-to-lambda-validate.outputs.response }}
       - uses: actions/checkout@v3
       - name: Use Node.js 18
         uses: actions/setup-node@v3
@@ -136,7 +136,7 @@ jobs:
           node-version: '18.x '
       - name: Run schema tests
         run: |
-          jqOut=$(jq -r '[.casesWithSuccess[].schema]|join(" ")'  ${{ steps.request-to-lambda-validate.outputs.response }})
+          jqOut=$(echo '${{ steps.request-to-lambda-validate.outputs.response }}' | jq -r '[.newCases[].schema]|join(" ")')
           echo $jqOut
           cd schema_tests/tests/
           npm install
