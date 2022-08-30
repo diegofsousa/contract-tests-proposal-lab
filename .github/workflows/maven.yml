@@ -105,4 +105,52 @@ jobs:
             script: |
               core.notice('[NEW_SCHEMAS] New schemes have been detected! See the logs');
               
+  sync-contract-tests-changes:
+    needs: [validate-external-contract-tests]
+    runs-on: ubuntu-latest
 
+    steps:
+      - uses: actions/checkout@v3
+      - name: Read schemas.json
+        id: package
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./schema_tests/schemas.json
+      - name: Echo schemas.json
+        run: echo "${{ steps.package.outputs.content }}"
+      - name: External contract validate
+        id: request-to-lambda
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://8vip765q9k.execute-api.sa-east-1.amazonaws.com/default/basicLambda'
+          method: 'POST'
+          customHeaders: '{"Content-Type": "application/json", "platform": "backend"}'
+          data: "${{ steps.package.outputs.content }}"
+      - name: Show Response
+        run: |
+          echo ${{ steps.request-to-lambda.outputs.response }}
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x '
+      - name: Run schema tests
+        run: |
+          jqOut=$(jq -r '[.casesWithSuccess[].schema]|join(" ")'  ${{ steps.request-to-lambda.outputs.response }})
+          echo $jqOut
+          cd schema_tests/tests/
+          npm install
+          eval "node index.js $jqOut"
+      - name: Read .schema-data.json
+        id: schema-data
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./schema_tests/tests/schemas/.schema-data.json
+      - name: Push contract
+        id: request-to-lambda
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://8vip765q9k.execute-api.sa-east-1.amazonaws.com/default/pushSchema'
+          method: 'POST'
+          customHeaders: '{"Content-Type": "application/json", "platform": "backend"}'
+          data: "${{ steps.schema-data.outputs.content }}"
