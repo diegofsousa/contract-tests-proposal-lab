@@ -68,16 +68,33 @@ jobs:
             echo ${{ fromJson(steps.request-to-lambda.outputs.response).status }}
             
         - name: Check result fail
-          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'FAILED' }}
+          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'FAILED_SCHEMA_TEST' }}
           uses: actions/github-script@v3
           with:
             script: |
-              core.setFailed('[FAIL] Some schemas test fail')
+              core.setFailed('[FAILED_SCHEMA_TEST] Some schemas test fail')
 
-        - name: Check result warning
-          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'WARNING' }}
+        - name: Check result warning update and success
+          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'SUCCESS_SCHEMA_TESTS_AND_SCHEMA_UPDATE_BY_OWNER' }}
           uses: actions/github-script@v3
           with:
             script: |
-              core.warning('[WARNING] There are test cases that were not found in other repositories');
+              core.warning('[SUCCESS_SCHEMA_TESTS_AND_SCHEMA_UPDATE_BY_OWNER] Some changes from schema tests where 
+              the backend is the owner were detected. View the logs and exercise caution when proceeding with changes');
+
+        - name: Check result warning update
+          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'SCHEMA_UPDATE_BY_OWNER' }}
+          uses: actions/github-script@v3
+          with:
+            script: |
+              core.warning('[SCHEMA_UPDATE_BY_OWNER] Some changes from schema tests where 
+              the backend is the owner were detected. View the logs and exercise caution when proceeding with changes');
+
+        - name: Check new schemas
+          if: ${{ fromJson(steps.request-to-lambda.outputs.response).hasNewCases == true }}
+          uses: actions/github-script@v3
+          with:
+            script: |
+              core.info('[NEW_SCHEMAS] New schemes have been detected! See the logs.');
+              
 
