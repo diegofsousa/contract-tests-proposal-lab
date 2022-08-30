@@ -81,6 +81,16 @@ jobs:
             script: |
               core.warning('[SUCCESS_SCHEMA_TESTS_AND_SCHEMA_UPDATE_BY_OWNER] Some changes from schema tests where the backend is the owner were detected. View the logs and exercise caution when proceeding with changes');
 
+        - name: Comment PR
+          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'SUCCESS_SCHEMA_TESTS_AND_SCHEMA_UPDATE_BY_OWNER' }}
+          uses: mshick/add-pr-comment@v1
+          with:
+            message: |
+              **SUCCESS_SCHEMA_TESTS_AND_SCHEMA_UPDATE_BY_OWNER**
+              Some changes from schema tests where the backend is the owner were detected. View the logs and exercise caution when proceeding with changes
+            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            allow-repeats: false
+
         - name: Check result warning update
           if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'SCHEMA_UPDATE_BY_OWNER' }}
           uses: actions/github-script@v3
