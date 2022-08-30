@@ -92,9 +92,9 @@ jobs:
 
         - name: Check new schemas
           if: ${{ fromJson(steps.request-to-lambda.outputs.response).hasNewCases == true }}
-          uses: actions/github-script@v3
+          uses: actions/github-script@v6
           with:
             script: |
-              core.notice('[NEW_SCHEMAS] New schemes have been detected! See the logs.');
+              core.notice('[NEW_SCHEMAS] New schemes have been detected! See the logs');
               
 
