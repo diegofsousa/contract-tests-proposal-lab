@@ -119,7 +119,7 @@ jobs:
       - name: Echo schemas.json
         run: echo "${{ steps.package.outputs.content }}"
       - name: External contract validate
-        id: request-to-lambda
+        id: request-to-lambda-validate
         uses: fjogeleit/http-request-action@v1
         with:
           url: 'https://8vip765q9k.execute-api.sa-east-1.amazonaws.com/default/basicLambda'
@@ -136,7 +136,7 @@ jobs:
           node-version: '18.x '
       - name: Run schema tests
         run: |
-          jqOut=$(jq -r '[.casesWithSuccess[].schema]|join(" ")'  ${{ steps.request-to-lambda.outputs.response }})
+          jqOut=$(jq -r '[.casesWithSuccess[].schema]|join(" ")'  ${{ steps.request-to-lambda-validate.outputs.response }})
           echo $jqOut
           cd schema_tests/tests/
           npm install
@@ -147,7 +147,7 @@ jobs:
         with:
           path: ./schema_tests/tests/schemas/.schema-data.json
       - name: Push contract
-        id: request-to-lambda
+        id: request-to-lambda-push
         uses: fjogeleit/http-request-action@v1
         with:
           url: 'https://8vip765q9k.execute-api.sa-east-1.amazonaws.com/default/pushSchema'
