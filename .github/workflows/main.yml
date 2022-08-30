@@ -58,7 +58,7 @@ jobs:
         with:
           url: 'https://8vip765q9k.execute-api.sa-east-1.amazonaws.com/default/basicLambda'
           method: 'POST'
-          customHeaders: '{"Content-Type": "application/json", "platform": "backend"}'
+          customHeaders: '{"Content-Type": "application/json", "platform": "android"}'
           data: "${{ steps.package.outputs.content }}"
       - name: Show Response
         run: |
@@ -87,5 +87,5 @@ jobs:
         with:
           url: 'https://8vip765q9k.execute-api.sa-east-1.amazonaws.com/default/pushSchema'
           method: 'POST'
-          customHeaders: '{"Content-Type": "application/json", "platform": "backend"}'
+          customHeaders: '{"Content-Type": "application/json", "platform": "android"}'
           data: "${{ steps.schema-data.outputs.content }}"
