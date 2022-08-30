@@ -1,6 +1,7 @@
 const {readFileSync, promises: fsPromises} = require('fs')
 const path = require('path');
 const fs = require('fs');
+const Joi = require("joi");
 
 function syncReadFile(filename) {
     const contents = readFileSync(filename, 'utf-8');
@@ -17,7 +18,7 @@ for (let i = 0; i < cases.length; i++) {
     let mockCase = cases[i];
     try {
         const testCase = require('./schemas/'+mockCase['key']);
-        const { error } = testCase(mockCase['object']);
+        const { error } = testCase(Joi, mockCase['object']);
 
         if (error != null){
             console.log("[FAIL] Schema test fail '" + mockCase['key'] + "' ⤵ :");
