@@ -1,0 +1,8 @@
+{
+  "schemaTests": [
+    {
+      "name": "cardV1",
+      "file": "Y29uc3QgSm9pID0gcmVxdWlyZSgiam9pIik7Cgptb2R1bGUuZXhwb3J0cyA9IGZ1bmN0aW9uIChwYXlsb2FkKSB7CiAgICBjb25zdCBzY2hlbWEgPSBKb2kub2JqZWN0KCkua2V5cyh7CiAgICAgICAgaWQ6IEpvaS5udW1iZXIoKSwKICAgICAgICBuYW1lOiBKb2kuc3RyaW5nKCksCiAgICAgICAgZmVlOiBKb2kubnVtYmVyKCksCiAgICAgICAgZGV0YWlsczogSm9pLm9iamVjdCgpLmtleXMoewogICAgICAgICAgICB0eXBlOiBKb2kuc3RyaW5nKCksCiAgICAgICAgICAgIGFjdGl2ZTogSm9pLmJvb2xlYW4oKSwKICAgICAgICAgICAgZGF5czogSm9pLm51bWJlcigpLAogICAgICAgIH0pCiAgICB9KS5yZXF1aXJlZCgpOwoKICAgIHJldHVybiBzY2hlbWEudmFsaWRhdGUocGF5bG9hZCk7Cn07"
+    }
+  ]
+}
