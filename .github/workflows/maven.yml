@@ -91,6 +91,16 @@ jobs:
             repo-token: ${{ secrets.GITHUB_TOKEN }}
             allow-repeats: false
 
+        - name: Comment PR on fail
+          if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'FAILED_SCHEMA_TEST' }}
+          uses: mshick/add-pr-comment@v1
+          with:
+            message: |
+              **FAILED_SCHEMA_TEST**
+              Oops! Some schema tests failed! :crying_cat_face: See the logs.
+            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            allow-repeats: false
+
         - name: Check result warning update
           if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'SCHEMA_UPDATE_BY_OWNER' }}
           uses: actions/github-script@v3
