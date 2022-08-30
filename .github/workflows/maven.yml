@@ -148,6 +148,7 @@ jobs:
           path: ./schema_tests/tests/schemas/.schema-data.json
       - name: Push contract
         id: request-to-lambda-push
+        if: ${{ fromJson(steps.request-to-lambda.outputs.response).status == 'SCHEMA_UPDATE_BY_OWNER' || fromJson(steps.request-to-lambda.outputs.response).status == 'SUCCESS_SCHEMA_TESTS_AND_SCHEMA_UPDATE_BY_OWNER' || (fromJson(steps.request-to-lambda.outputs.response).status == 'SUCCESS_SCHEMA_TEST' && fromJson(steps.request-to-lambda.outputs.response).hasNewCases == true) }}
         uses: fjogeleit/http-request-action@v1
         with:
           url: 'https://8vip765q9k.execute-api.sa-east-1.amazonaws.com/default/pushSchema'
