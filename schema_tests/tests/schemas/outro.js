@@ -1,6 +1,8 @@
 module.exports = function (joi, payload) {
     const schema = joi.object().keys({
-        fee: joi.number(),
+        type: joi.string(),
+        active: joi.boolean(),
+        days: joi.number()
     }).required();
 
     return schema.validate(payload);

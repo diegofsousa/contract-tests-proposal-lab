@@ -2,7 +2,7 @@ package dev.diegofernando.apiclient.dto.response;
 
 import dev.diegofernando.apiclient.annotations.SchemaTestsScan;
 
-//@SchemaTestsScan(key = "outro")
+@SchemaTestsScan(key = "outro")
 public class ContentDTO {
     private String type;
 

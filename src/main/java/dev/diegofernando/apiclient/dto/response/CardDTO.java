@@ -9,7 +9,7 @@ public class CardDTO {
 
     private String name;
 
-    private double fee;
+    private String fee;
 
     @JsonProperty(value = "details")
     private ContentDTO content;
@@ -30,11 +30,11 @@ public class CardDTO {
         this.name = name;
     }
 
-    public double getFee() {
+    public String getFee() {
         return fee;
     }
 
-    public void setFee(double fee) {
+    public void setFee(String fee) {
         this.fee = fee;
     }
 
@@ -51,7 +51,7 @@ public class CardDTO {
         return "CardDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", fee=" + fee +
+                ", fee='" + fee + '\'' +
                 ", content=" + content +
                 '}';
     }

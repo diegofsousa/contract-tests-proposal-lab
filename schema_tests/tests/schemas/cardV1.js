@@ -1,14 +1,12 @@
-const Joi = require("joi");
-
-module.exports = function (payload) {
-    const schema = Joi.object().keys({
-        id: Joi.number(),
-        name: Joi.string(),
-        fee: Joi.number(),
-        details: Joi.object().keys({
-            type: Joi.string(),
-            active: Joi.boolean(),
-            days: Joi.number(),
+module.exports = function (joi, payload) {
+    const schema = joi.object().keys({
+        id: joi.number(),
+        name: joi.string(),
+        fee: joi.string(),
+        details: joi.object().keys({
+            type: joi.string(),
+            active: joi.boolean(),
+            days: joi.number(),
         })
     }).required();
 
