@@ -11,5 +11,10 @@
   "devDependencies": {
     "joi": "^17.6.0",
     "joi-assert": "0.0.3"
+  },
+  "dependencies": {
+    "felicity": "^6.0.0",
+    "install": "^0.13.0",
+    "npm": "^8.18.0"
   }
 }
