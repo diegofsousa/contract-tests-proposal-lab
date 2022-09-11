@@ -12,7 +12,7 @@ The architecture follows the diagram below.
 
 1. Whenever a new POJO is created, you must add the annotation `@SchemaTestsScan(key = "key")`. By doing this we run the following command to generate mock objects of all our POJO's:
 
-   `mvn compile exec:java -Dexec.mainClass=dev.diegofernando.apiserver.utils.GenerateFakeObjects`
+   `mvn compile exec:java -Dexec.mainClass=dev.diegofernando.apiclient.utils.GenerateFakeObjects`
 
    The objects will be saved in a single JSON file. We can find it in "schema_tests/schemas.json"
 
