@@ -56,7 +56,7 @@ jobs:
           id: request-to-lambda
           uses: fjogeleit/http-request-action@v1
           with:
-            url: ${{ secrets.UrlLambdaPullAws }}
+            url: 'https://8vip765q9k.execute-api.sa-east-1.amazonaws.com/default/basicLambda'
             method: 'POST'
             customHeaders: '{"Content-Type": "application/json", "platform": "android"}'
             data: "${{ steps.package.outputs.content }}"
