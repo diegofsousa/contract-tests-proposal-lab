@@ -58,5 +58,5 @@ Here is the pipeline execution flow diagram:
 ## Related repositories
 
 - [contract-tests-example](https://github.com/diegofsousa/contract-tests-example) - Simulates a backend.
-  environment (android) that uses the proposed engine.
+  environment that uses the proposed engine.
 - [contract-tests-lambda](https://github.com/diegofsousa/contract-tests-lambda) - Orchestrates tests in the cloud environment.
